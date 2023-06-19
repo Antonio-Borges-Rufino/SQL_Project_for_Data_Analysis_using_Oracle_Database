@@ -154,3 +154,41 @@ WHERE employee_id = 207;
 delete employees
 where employee_id = 207;
 ```
+21. TRABALHANDO O COMANDO DE ROLLBACK 
+```
+SELECT * 
+FROM employees
+order by employee_id desc;
+
+rollback;
+
+INSERT INTO employees (employee_id,FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+VALUES 
+    (207
+    , 'Antonio'
+    , 'Rufino'
+    , 'xxx@gmail.com'
+    , '111.111.1111'
+    , TO_DATE('10-06-2023','dd-mm-yyyy')
+    , 'HR_REP'
+    , 10000
+    , NULL
+    , 205
+    , 20
+    );
+-- PARA VOLTAR ANTES DA INSERÇÃO DO REGISTRO, BASTA EXECUTAR O ROLLBACK DE NOVO
+```
+22. CRIAR UM BACKUP DE UMA TABELA USANDO O COMANDO INSERT COM SELECT
+```
+CREATE TABLE employees_baclup AS (SELECT * FROM employees)
+SELECT * FROM employees_baclup
+```
+23. USANDO O ROLBACK E O COMMIT PARA PERSISTENCIA
+```
+rollback;
+-- APAGAR TODOS OS REGISTROS DE UMA TABELA --
+TRUNCATE TABLE employees_baclup
+-- INSERIR DE NOVO TODOS OS REGISTROS NA TABELA --
+INSERT INTO employees_baclup SELECT * FROM employees
+commit; -- O COMITE SERVE PARA EVITAR UM ROLBACK E A PERDA DA INFORMAÇÃO 
+```
