@@ -126,3 +126,31 @@ FROM employees
 WHERE first_name LIKE 'A%'
 AND first_name NOT LIKE '%a'
 ```
+18. COMANDO INSERT SEM USO DE SELECT
+```
+INSERT INTO employees (employee_id,FIRST_NAME,LAST_NAME,EMAIL,PHONE_NUMBER,HIRE_DATE,JOB_ID,SALARY,COMMISSION_PCT,MANAGER_ID,DEPARTMENT_ID)
+VALUES 
+    (207
+    , 'Antonio'
+    , 'Rufino'
+    , 'xxx@gmail.com'
+    , '111.111.1111'
+    , TO_DATE('10-06-2023','dd-mm-yyyy')
+    , 'HR_REP'
+    , 10000
+    , NULL
+    , 205
+    , 20
+    );
+```
+19. COMANDO UPDATE 
+```
+update employees
+SET salary = 100000
+WHERE employee_id = 207;
+```
+20. COMANDO DELET
+```
+delete employees
+where employee_id = 207;
+```
