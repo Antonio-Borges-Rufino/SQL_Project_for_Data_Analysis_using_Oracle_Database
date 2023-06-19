@@ -100,3 +100,29 @@ SELECT *
 FROM locations
 ORDER BY country_id asc,city DESC;
 ```
+14. PESQUISAR CARGOS DE TRABALHO ESPECIFICOS USANDO IN
+```
+SELECT *
+FROM jobs
+WHERE job_title in ('President','Finance Manager','Programmer');
+```
+
+ 15. PESQUISAR CARGOS DE TRABALHO ESPECIFICOS QUE NÃO DO GRUPO SELECIONADO 
+```
+SELECT *
+FROM jobs
+WHERE job_title not in ('President','Finance Manager','Programmer');
+```
+16. USO DE CARACTER CORINGA USANDO LIKE
+```
+SELECT *
+FROM employees
+WHERE job_id LIKE 'AD%';
+```
+17. OUTRAS POSSIBILIDADES DE USO DE CARACTER CORINGA, DE FORMA MAIS ABRANGENTE
+```
+SELECT *
+FROM employees
+WHERE first_name LIKE 'A%'
+AND first_name NOT LIKE '%a'
+```
