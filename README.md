@@ -215,3 +215,58 @@ WHERE (
 or (job_id LIKE 'S%' and salary < 10000)
 );
 ```
+27. JUNTANDO TABELAS SEM O USO DO JOIN
+```
+SELECT *
+FROM employees, departments
+where employees.department_id = departments.department_id
+and departments.department_name = 'Marketing'
+```
+28. FAZENDO A JUNÇÃO DE TABELAS USANDO O JOIN
+```
+SELECT * 
+FROM employees INNER JOIN departments 
+ON employees.department_id = departments.department_id 
+AND departments.department_name = 'Marketing'
+INNER JOIN locations
+ON departments.LOCATION_ID = locations.LOCATION_ID;
+```
+29. EM ALGUNS CASO, EXISTE A NECESSIDADE DO USO DO LEFT JOIN
+```
+SELECT * 
+FROM departments LEFT OUTER JOIN employees 
+ON departments.department_id = employees.department_id
+ORDER BY departments.MANAGER_ID NULLS FIRST;
+```
+30. O RIGHT JOIN É A MESMA COISA DO LEFT, MAS AO CONTRARIO, COM A LEITURA COMEÇANDO DA DIREITA PARA ESQUERDA
+```
+SELECT * 
+FROM departments RIGHT OUTER JOIN employees
+ON departments.DEPARTMENT_ID = employees.DEPARTMENT_ID
+ORDER BY departments.DEPARTMENT_ID;
+```
+31. USANDO O FULL JOIN
+```
+SELECT * 
+from departments FULL OUTER JOIN employees
+ON departments.DEPARTMENT_ID = employees.DEPARTMENT_ID
+ORDER BY departments.DEPARTMENT_ID;
+```
+
+32. USANDO JOIN EM CONSULTAS COM A MESMA TABELA, MOSTRANDO UM CASO DE USO ESPECIAL
+```
+SELECT a.FIRST_NAME ||' '|| a.LAST_NAME AS FUNCIONARIO,
+a.EMPLOYEE_ID, b.FIRST_NAME ||' '|| b.LAST_NAME AS GERENTE
+FROM EMPLOYEES a, employees b
+WHERE a.employee_id = b.manager_id
+ORDER BY FUNCIONARIO;
+
+-- REALIZANDO A CONSULTA ANTERIOR USANDO JOIN --
+SELECT a.FIRST_NAME ||' '|| a.LAST_NAME AS FUNCIONARIO,
+a.EMPLOYEE_ID, b.FIRST_NAME ||' '|| b.LAST_NAME AS GERENTE
+FROM EMPLOYEES a JOIN employees b
+ON a.employee_id = b.manager_id
+ORDER BY FUNCIONARIO;
+```
+
+
