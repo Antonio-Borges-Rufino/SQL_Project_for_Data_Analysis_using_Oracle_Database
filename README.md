@@ -192,3 +192,26 @@ TRUNCATE TABLE employees_baclup
 INSERT INTO employees_baclup SELECT * FROM employees
 commit; -- O COMITE SERVE PARA EVITAR UM ROLBACK E A PERDA DA INFORMAÇÃO 
 ```
+24. USANDO O DISTINCT PARA VISUALIZAR VALORES UNICOS
+```
+SELECT DISTINCT country_id
+FROM locations
+ORDER BY country_id;
+```
+25. USO DE UM SELECT DENTRO DE UMA CLAUSULA IN PARA AUMENTAR O FILTRO
+```
+-- BUSCANDO O NOME DOS GERENTES --
+SELECT first_name ||' '|| last_name as NAME FROM employees 
+WHERE EMPLOYEE_ID IN (Select distinct manager_id from departments);
+```
+26. USO DE CONDIÇÕES ANINHADAS
+```
+-- job_id = AD%  e salary < 15000 --
+-- OR job_id = S% e salaray > 10000 -- 
+SELECT * 
+FROM EMPLOYEES
+WHERE (
+(job_id LIKE 'AD%' and salary > 15000) 
+or (job_id LIKE 'S%' and salary < 10000)
+);
+```
