@@ -285,3 +285,26 @@ SELECT 'FUNCTIONAL' ||' '|| CITY  FROM LOCATIONS
 INTERSECT
 SELECT 'N_FUNCTINAL' ||' '|| CITY FROM LOCATIONS;
 ```
+34. CONSTRUINDO UM SELECT COMPLETO
+```
+-- CRIAR UM SELECT CUSTOMIZADO -- 
+SELECT 
+E.first_name ||' '|| E.last_name AS NAME,
+E.email,E.salary,
+J.job_title, 
+EE.first_name ||' '|| EE.last_name AS MANAGER,
+D.department_name,
+L.city,
+CC.country_name
+FROM employees E
+LEFT OUTER JOIN JOBS J
+ON E.job_id = J.job_id
+LEFT OUTER JOIN employees EE
+ON E.manager_id = EE.employee_id
+LEFT OUTER JOIN departments D
+ON E.department_id = D.department_id
+LEFT OUTER JOIN locations L
+ON D.location_id = L.location_id
+LEFT OUTER JOIN countries CC
+ON CC.country_id = L.country_id
+```
