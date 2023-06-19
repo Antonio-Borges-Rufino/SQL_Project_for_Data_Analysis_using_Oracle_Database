@@ -3,7 +3,7 @@
   das partes 1 a 7
 
 # Informações Gerais
-1. Motivação
+1. Motivação  
     -> Aprender os diferentes usos do Oracle Database 
 2. Diagrama de Aprendizado
 ![](https://github.com/Antonio-Borges-Rufino/SQL_Project_for_Data_Analysis_using_Oracle_Database/blob/main/3596zn01.png)
