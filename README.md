@@ -308,3 +308,82 @@ ON D.location_id = L.location_id
 LEFT OUTER JOIN countries CC
 ON CC.country_id = L.country_id
 ```
+35. MAIS 2 CASOS DE USO DE AFUNILAMENTO DENTRO DA CLAUSULA IN USANDO SELECT
+```
+-- USO 1 --
+SELECT first_name ||' '|| last_name as NAME FROM employees 
+WHERE EMPLOYEE_ID IN (Select distinct manager_id from departments);
+
+-- USO 2 --
+SELECT d.department_name FROM departments d
+WHERE d.department_id IN 
+(SELECT e.department_id FROM employees e WHERE e.salary > 10000)
+```
+
+36. USO DA FUNÇÃO DE AGREGAÇÃO MAX
+```
+SELECT * FROM employees 
+WHERE salary IN (SELECT MAX(salary) FROM employees);
+```
+37. USO DA FUNÇÃO DE AGREGAÇÃO MIN
+```
+SELECT * FROM employees 
+WHERE salary IN (SELECT MIN(salary) FROM employees);
+```
+38. USO DA FUNÇÃO DE SUMARAZIÇÃO 
+```
+SELECT SUM(salary) FROM EMPLOYEES;
+```
+39. USO DA FUNÇÃO COUNT 
+```
+SELECT COUNT(*) FROM EMPLOYEES;
+```
+40. USO DA FUNÇÃO DE MÉDIA UTILIZANDO O ARREDONDAMENTO ROUND
+```
+SELECT ROUND(AVG(SALARY),2) FROM EMPLOYEES;
+```
+41. USO EM UM SELECT DAS FUNÇÕES DE AGREGAÇÃO, SEM A NECESSIDADE DE UTLIZAR AGRUPAMENTOS
+```
+-- ENCONTRAR TODOS OS FUNCIONARIOS DE TI --
+-- ADIMITIDOS DEPOIS DE 01/01/98 --
+-- E QUE POSSUEM SALARIO MAIOR QUE A MEDIA --
+SELECT e.first_name,e.department_id FROM employees e 
+WHERE e.department_id IN (SELECT department_id FROM departments 
+WHERE department_name LIKE 'IT%') AND
+e.hire_date > TO_DATE('01-01-1998','dd-mm-yyyy') AND
+e.salary > (SELECT AVG(salary)FROM employees)
+```
+42. E CONVENIENTE USAR ALGUMAS FUNÇÕES DE AGREGAÇÃO UTILIZANDO O GROUP BY (AGRUPAMENTO)
+```
+SELECT d.department_name,
+COUNT(*) AS "QTD",
+ROUND(AVG(e.salary),2)
+FROM departments d
+JOIN employees e
+ON e.department_id = d.department_id
+GROUP BY d.department_name
+ORDER BY "QTD";
+
+-- USO 2 --
+SELECT em.first_name, 
+COUNT(e.employee_id) AS "MANAGER_EMPLOYEED" 
+FROM employees e
+JOIN employees em
+ON e.manager_id = em.employee_id 
+GROUP BY em.first_name
+ORDER BY "MANAGER_EMPLOYEED"  DESC;
+```
+
+43. USO DO AGRUPAMENTO UTILZANDO A CLAUSULA HEAVING, ELA SE DIFERE DO WHERE POIS ACONTECE DIRETAMENTE PARA O AGRUPAMENTO
+```
+SELECT DEPARTMENTS.DEPARTMENT_NAME,
+MAX(SALARY) AS "MAX_SALARY"
+FROM EMPLOYEES
+JOIN DEPARTMENTS
+ON EMPLOYEES.DEPARTMENT_ID     = DEPARTMENTS.DEPARTMENT_ID
+WHERE EMPLOYEES.DEPARTMENT_ID IS NOT NULL
+GROUP BY DEPARTMENTS.DEPARTMENT_NAME
+HAVING MAX(SALARY) > 10000
+ORDER BY MAX_SALARY ASC,
+DEPARTMENT_NAME DESC;
+```
