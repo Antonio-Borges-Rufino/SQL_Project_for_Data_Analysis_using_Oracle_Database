@@ -394,3 +394,15 @@ SELECT *
 FROM DEPARTMENTS
 WHERE EXISTS (SELECT * FROM EMPLOYEES WHERE EMPLOYEES.DEPARTMENT_ID = DEPARTMENTS.DEPARTMENT_ID);
 ```
+45. PODEMOS CATEGORIZAR OS DADOS FACILITANDO O ENTENDIMENTO 
+```
+SELECT e.first_name||' '||e.last_name,
+e.hire_date,
+CASE
+    WHEN e.hire_date < TO_DATE('01-JAN-1990','dd-MON-yyyy') THEN 'ANTES_90'
+    WHEN (e.hire_date > TO_DATE('01-JAN-1990','dd-MON-yyyy') and (e.hire_date < TO_DATE('01-JAN-1995','dd-MON-yyyy'))) THEN 'ENTRE_90-95'
+    ELSE
+        'DEPOIS_95'
+END
+FROM employees e;
+```
